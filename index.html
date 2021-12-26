@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+
+    <title>Pomodoro app</title>
+  </head>
+  <body>
+    <main class="container">
+      <h1>Pomodoro</h1>
+
+      <!-- Control buttons -->
+      <div class="control">
+        <!-- Buttons -->
+        <button
+          class="btn btn--active"
+          id="pomodoro"
+          aria-label="pomodoro"
+        >
+          Pomodoro
+        </button>
+        <button class="btn" id="short-break" aria-label="short-break">
+          Short break
+        </button>
+        <button class="btn" id="long-break" aria-label="long-break">
+          Long break
+        </button>
+      </div>
+
+      <!-- Timer -->
+      <div class="timer">
+        <div class="timer-circle-wrap">
+          <svg
+            class="timer-svg"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g class="timer-circle">
+              <circle
+                class="timer-path-elapsed"
+                cx="50"
+                cy="50"
+                r="45"
+                transform="rotate(-90 50 50)"
+              />
+            </g>
+          </svg>
+          <!-- Minutes and seconds display -->
+          <div class="timer-time-left" id="timer-time-left">
+            <h1 class="min-sec">25:00</h1>
+          </div>
+          <div class="timer-control">
+            <button class="timer-control-btn" id="start" aria-label="play">
+              Start
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="settings-icon">
+        <button id="settings-btn">
+            <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.21,8.95 2.27,9.22 2.46,9.37L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.21,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.67 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z" />
+            </svg>
+        </button>
+      </div>
+      <!-- Settings (Modal) -->
+      <div class="settings" id="settings-modal">
+        <form id="settings-form">
+          <div class="settings-inner">
+            <!-- Settings top -->
+            <div class="settings-top">
+              <h2>Settings</h2>
+              <button class="settings-close-btn" id="settings-close-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14">
+                  <path
+                    fill="#1E213F"
+                    fill-rule="evenodd"
+                    d="M11.95.636l1.414 1.414L8.414 7l4.95 4.95-1.414 1.414L7 8.414l-4.95 4.95L.636 11.95 5.586 7 .636 2.05 2.05.636 7 5.586l4.95-4.95z"
+                  />
+                </svg>
+              </button>
+            </div>
+            <!-- Settings body wrapper -->
+            <div class="settings-body-wrapper">
+            
+              <!-- Settings time input -->
+              <h4>Time (minutes)</h4>
+              <div class="settings-set-time">
+                <!-- Pomodoro time input -->
+                <div class="input-grid">
+                  <label for="pomodoro">Pomodoro</label>
+                  <div class="settings-set-time--input">
+                    <input class="input-number" min="0" max="90" type="number" name="pomodoro" id="pomodoro-input">
+                    </input>
+                    <div class="settings-controls">
+                      <button class="btn-up" id="upPomodoro">
+                        <svg
+                        class="up-arrow"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="14"
+                        height="7"
+                        >
+                          <path
+                            id="svg"
+                            fill="none"
+                            stroke="#1E213F"
+                            stroke-width="2"
+                            d="M1 6l6-4 6 4"
+                          />
+                        </svg>
+                      </button>
+
+                      <button class="btn-down" id="downPomodoro">
+                        <svg
+                        class="down-arrow"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="14"
+                        height="7"
+                      >
+                        <path
+                          path
+                          id="svg"
+                          fill="none"
+                          stroke="#1E213F"
+                          stroke-width="2"
+                          d="M1 1l6 4 6-4"
+                        />
+                      </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <!-- END Pomodoro time input -->
+                <!-- Short break time input -->
+                <div class="input-grid">
+                  <label for="short-break">Short break</label>
+                  <div class="settings-set-time--input">
+                    <input class="input-number" min="0" type="number" name="short-break" id="short-input">
+                    </input>
+                    <div class="settings-controls">
+                      <button class="btn-up" id="upShort">
+                        <svg
+                          class="up-arrow"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="14"
+                          height="7"
+                        >
+                        <path
+                          fill="none"
+                          stroke="#1E213F"
+                          stroke-width="2"
+                          d="M1 6l6-4 6 4"
+                        />
+                        </svg>
+                      </button>
+
+                      <button class="btn-down" id="downShort">
+                        <svg
+                          class="down-arrow"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="14"
+                          height="7"
+                        >
+                          <path
+                            fill="none"
+                            stroke="#1E213F"
+                            stroke-width="2"
+                            d="M1 1l6 4 6-4"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <!-- END Short break time input -->
+                <!-- Long break time input -->
+                <div class="input-grid">
+                  <label for="long-break">Long break</label>
+                  <div class="settings-set-time--input">
+                    <input class="input-number" min="0" type="number" name="long-break" id="long-input">
+                    </input>
+                    <div class="settings-controls">
+                      <button class="btn-up" id="upLong">
+                        <svg
+                          class="up-arrow"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="14"
+                          height="7"
+                        >
+                          <path
+                            fill="none"
+                            stroke="#1E213F"
+                            stroke-width="2"
+                            d="M1 6l6-4 6 4"
+                          />
+                        </svg>
+                      </button>
+
+                      <button class="btn-down" id="downLong">
+                        <svg
+                          class="down-arrow"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="14"
+                          height="7"
+                        >
+                          <path
+                            fill="none"
+                            stroke="#1E213F"
+                            stroke-width="2"
+                            d="M1 1l6 4 6-4"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <!-- END Long break time input -->
+              </div>
+              <!-- END Settings time input -->
+
+              <!-- Fonts -->
+              <div class="settings-fonts-wrapper">
+                <h4 class="settings-fonts-heading">Font</h4>
+                <div class="settings-fonts">
+                  <div class="radio">
+                    <label class="radio-container">
+                      <input
+                        id="pushster"
+                        type="radio"
+                        class="font-picker"
+                        name="fonts"
+                        value="pushster"
+                        checked
+                      />
+                      <span class="font-checkmark font" id="pushster"></span>
+                    </label>
+                  </div>
+
+                  <div class="radio">
+                    <label class="radio-container">
+                      <input
+                        id="oswald"
+                        type="radio"
+                        class="font-picker"
+                        name="fonts"
+                        value="oswald"
+                      />
+                      <span class="font-checkmark font" id="oswald"></span>
+                    </label>
+                  </div>
+
+                  <div class="radio">
+                    <label class="radio-container">
+                      <input
+                        id="lora"
+                        type="radio"
+                        class="font-picker"
+                        name="fonts"
+                        value="lora"
+                      />
+                      <span class="font-checkmark font" id="lora"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <!-- Colors -->
+              <div class="settings-colors-wrapper">
+                <h4 class="settings-colors-heading">Color</h4>
+                <div class="settings-colors">
+                  <div class="radio">
+                    <label class="radio-container" for="primary-red">
+                      <input
+                        id="primary-red"
+                        type="radio"
+                        class="settings-color-swatch"
+                        name="colors"
+                        value="#f87070"
+                        checked
+                      />
+                      <span class="color-checkmark red"></span>
+                    </label>
+                  </div>
+
+                  <div class="radio">
+                    <label class="radio-container" for="primary-teal">
+                      <input
+                        id="primary-teal"
+                        type="radio"
+                        class="settings-color-swatch"
+                        name="colors"
+                        value="#70f3f8"
+                      />
+                      <span class="color-checkmark teal"></span>
+                    </label>
+                  </div>
+
+                  <div class="radio">
+                    <label class="radio-container" for="primary-purple">
+                      <input
+                        id="primary-purple"
+                        type="radio"
+                        class="settings-color-swatch"
+                        name="colors"
+                        value="#d881f8"
+                      />
+                      <span class="color-checkmark purple"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+                <button type="submit" class="settings-apply-btn" id="apply-btn" aria-label="apply">
+                    Apply
+                </button>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <script src="./index.js"></script>
+  </body>
+</html>
